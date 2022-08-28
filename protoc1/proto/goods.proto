@@ -1,0 +1,31 @@
+syntax = "proto3";
+option go_package = "./goodsService";
+// 定义rpc服务 生成的是接口
+service goodsService {
+    // 定义rpc方法
+    rpc AddGoods (AddGoodsReq) returns (AddGoodsRes) {}
+    rpc GetGoods (GetGoodsReq) returns (GetGoodsRes) {}
+}
+
+message GoodsModel{
+    string title = 1;
+    double price = 2;
+    string content = 3;
+}
+
+message AddGoodsReq {
+    GoodsModel result = 1;
+}
+
+message AddGoodsRes {
+    bool success = 1;
+    string message = 2;
+}
+
+message GetGoodsReq {
+    GoodsModel params = 1;
+}
+
+message GetGoodsRes {
+    repeated GoodsModel goodsList = 1;
+}

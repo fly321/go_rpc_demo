@@ -6,6 +6,13 @@ message userinfo{
   int32 age = 2;
   // 切片string[]
   repeated string hobby = 3;
+  PhoneType phoneType = 4;
+}
+
+enum PhoneType {
+  MOBILE = 0;
+  HOME = 1;
+  WORK = 2;
 }
 
 // 命令 : protoc --go_out=./ *.proto

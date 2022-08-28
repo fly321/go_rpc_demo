@@ -20,6 +20,55 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type PhoneType int32
+
+const (
+	PhoneType_MOBILE PhoneType = 0
+	PhoneType_HOME   PhoneType = 1
+	PhoneType_WORK   PhoneType = 2
+)
+
+// Enum value maps for PhoneType.
+var (
+	PhoneType_name = map[int32]string{
+		0: "MOBILE",
+		1: "HOME",
+		2: "WORK",
+	}
+	PhoneType_value = map[string]int32{
+		"MOBILE": 0,
+		"HOME":   1,
+		"WORK":   2,
+	}
+)
+
+func (x PhoneType) Enum() *PhoneType {
+	p := new(PhoneType)
+	*p = x
+	return p
+}
+
+func (x PhoneType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (PhoneType) Descriptor() protoreflect.EnumDescriptor {
+	return file_userinfo_proto_enumTypes[0].Descriptor()
+}
+
+func (PhoneType) Type() protoreflect.EnumType {
+	return &file_userinfo_proto_enumTypes[0]
+}
+
+func (x PhoneType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use PhoneType.Descriptor instead.
+func (PhoneType) EnumDescriptor() ([]byte, []int) {
+	return file_userinfo_proto_rawDescGZIP(), []int{0}
+}
+
 // option go_package = "./;userinfo";
 type Userinfo struct {
 	state         protoimpl.MessageState
@@ -29,7 +78,8 @@ type Userinfo struct {
 	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	Age      int32  `protobuf:"varint,2,opt,name=age,proto3" json:"age,omitempty"`
 	// 切片string[]
-	Hobby []string `protobuf:"bytes,3,rep,name=hobby,proto3" json:"hobby,omitempty"`
+	Hobby     []string  `protobuf:"bytes,3,rep,name=hobby,proto3" json:"hobby,omitempty"`
+	PhoneType PhoneType `protobuf:"varint,4,opt,name=phoneType,proto3,enum=PhoneType" json:"phoneType,omitempty"`
 }
 
 func (x *Userinfo) Reset() {
@@ -85,17 +135,30 @@ func (x *Userinfo) GetHobby() []string {
 	return nil
 }
 
+func (x *Userinfo) GetPhoneType() PhoneType {
+	if x != nil {
+		return x.PhoneType
+	}
+	return PhoneType_MOBILE
+}
+
 var File_userinfo_proto protoreflect.FileDescriptor
 
 var file_userinfo_proto_rawDesc = []byte{
 	0x0a, 0x0e, 0x75, 0x73, 0x65, 0x72, 0x69, 0x6e, 0x66, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x22, 0x4e, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x69, 0x6e, 0x66, 0x6f, 0x12, 0x1a, 0x0a, 0x08,
+	0x22, 0x78, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x69, 0x6e, 0x66, 0x6f, 0x12, 0x1a, 0x0a, 0x08,
 	0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
 	0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x61, 0x67, 0x65, 0x18,
 	0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x03, 0x61, 0x67, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x68, 0x6f,
 	0x62, 0x62, 0x79, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x05, 0x68, 0x6f, 0x62, 0x62, 0x79,
-	0x42, 0x10, 0x5a, 0x0e, 0x2e, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x28, 0x0a, 0x09, 0x70, 0x68, 0x6f, 0x6e, 0x65, 0x54, 0x79, 0x70, 0x65, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x0e, 0x32, 0x0a, 0x2e, 0x50, 0x68, 0x6f, 0x6e, 0x65, 0x54, 0x79, 0x70, 0x65, 0x52,
+	0x09, 0x70, 0x68, 0x6f, 0x6e, 0x65, 0x54, 0x79, 0x70, 0x65, 0x2a, 0x2b, 0x0a, 0x09, 0x50, 0x68,
+	0x6f, 0x6e, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x0a, 0x0a, 0x06, 0x4d, 0x4f, 0x42, 0x49, 0x4c,
+	0x45, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x48, 0x4f, 0x4d, 0x45, 0x10, 0x01, 0x12, 0x08, 0x0a,
+	0x04, 0x57, 0x4f, 0x52, 0x4b, 0x10, 0x02, 0x42, 0x10, 0x5a, 0x0e, 0x2e, 0x2f, 0x75, 0x73, 0x65,
+	0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -110,16 +173,19 @@ func file_userinfo_proto_rawDescGZIP() []byte {
 	return file_userinfo_proto_rawDescData
 }
 
+var file_userinfo_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_userinfo_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_userinfo_proto_goTypes = []interface{}{
-	(*Userinfo)(nil), // 0: userinfo
+	(PhoneType)(0),   // 0: PhoneType
+	(*Userinfo)(nil), // 1: userinfo
 }
 var file_userinfo_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: userinfo.phoneType:type_name -> PhoneType
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_userinfo_proto_init() }
@@ -146,13 +212,14 @@ func file_userinfo_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_userinfo_proto_rawDesc,
-			NumEnums:      0,
+			NumEnums:      1,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_userinfo_proto_goTypes,
 		DependencyIndexes: file_userinfo_proto_depIdxs,
+		EnumInfos:         file_userinfo_proto_enumTypes,
 		MessageInfos:      file_userinfo_proto_msgTypes,
 	}.Build()
 	File_userinfo_proto = out.File
