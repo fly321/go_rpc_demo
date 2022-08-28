@@ -1,6 +1,6 @@
 syntax = "proto3";
 option go_package = "./goodsService";
-// 定义rpc服务 生成的是接口
+// 定义rpc服务 生成的是接口 cmd : protoc --go_out=plugins=grpc:./ *.proto
 service goodsService {
     // 定义rpc方法
     rpc AddGoods (AddGoodsReq) returns (AddGoodsRes) {}
