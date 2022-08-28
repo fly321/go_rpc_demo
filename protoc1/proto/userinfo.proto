@@ -1,0 +1,11 @@
+syntax = "proto3";
+option go_package = "./userServices";
+//option go_package = "./;userinfo";
+message userinfo{
+  string username = 1;
+  int32 age = 2;
+  // 切片string[]
+  repeated string hobby = 3;
+}
+
+// 命令 : protoc --go_out=./ *.proto
